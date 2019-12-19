@@ -1,5 +1,6 @@
 import { CanvasDisplay } from './src/models/CanvasDisplay.js';
 import { State } from './src/models/state.js';
+import { Level } from './src/models/level.js';
 
 function trackKeys(keys) {
   let down = Object.create(null);
@@ -14,8 +15,7 @@ function trackKeys(keys) {
   return down;
 }
 
-const arrowKeys =
-  trackKeys(["ArrowDown", "ArrowUp"]);
+const arrowKeys = trackKeys(["ArrowDown", "ArrowUp"]);
 
 function runAnimation(frameFunc) {
   let lastTime = null;
@@ -32,7 +32,7 @@ function runAnimation(frameFunc) {
 
 function runGame(Display) {
   let display = new Display(document.body);
-  let state = State.start();
+  let state = State.start(new Level());
   let ending = 1;
   return new Promise(resolve => {
     runAnimation(time => {

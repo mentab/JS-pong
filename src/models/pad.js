@@ -18,5 +18,5 @@ export class Pad {
 Pad.prototype.size = new Vec(0, 0);
 
 Pad.prototype.update = function(time, state) {
-
+  return new Pad(new Vec(0, 0));
 }

@@ -1,11 +1,12 @@
 export class State {
-  constructor(actors, status) {
+  constructor(level, actors, status) {
+    this.level = level;
     this.actors = actors;
     this.status = status;
   }
 
-  static start() {
-    return new State(actors, "playing");
+  static start(level) {
+    return new State(level, level.startActors, "playing");
   }
 
   get ball() {
@@ -15,7 +16,7 @@ export class State {
 
 State.prototype.update = function(time, keys) {
   let actors = this.actors.map(actor => actor.update(time, this, keys));
-  let newState = new State(actors, this.status);
+  let newState = new State(this.level, actors, this.status);
 
   if (newState.status != "playing") return newState;
 

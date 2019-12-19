@@ -18,5 +18,5 @@ export class Player {
 Player.prototype.size = new Vec(0, 0);
 
 Player.prototype.update = function(time, state, keys) {
-
+  return new Player(new Vec(0, 0));
 }

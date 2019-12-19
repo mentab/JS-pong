@@ -18,7 +18,7 @@ export class Ball {
 Ball.prototype.size = new Vec(0, 0);
 
 Ball.prototype.update = function(time, state) {
-
+  return new Ball(new Vec(0, 0));
 }
 
 Ball.prototype.collide = function(state) {
