@@ -1,3 +1,4 @@
+import { WIDTH, HEIGHT } from '../consts/consts.js';
 import { Player } from './../models/player.js';
 import { Pad } from './../models/pad.js';
 import { Ball } from './../models/ball.js';
@@ -8,22 +9,16 @@ export class Level {
     this.startActors = [];
     this.startActors.push(Player.create(new Vec(0, 0)));
     this.startActors.push(Pad.create(new Vec(0, 0)));
-    this.startActors.push(Ball.create(new Vec(0, 0)));
+    this.startActors.push(Ball.create(new Vec(0, 0), 1));
   }
 }
 
-Level.prototype.touches = function(pos, size, type) {
-  let xStart = Math.floor(pos.x);
-  let xEnd = Math.ceil(pos.x + size.x);
+Level.prototype.isOutside = function(pos, size) {
   let yStart = Math.floor(pos.y);
   let yEnd = Math.ceil(pos.y + size.y);
-
   for (let y = yStart; y < yEnd; y++) {
-    for (let x = xStart; x < xEnd; x++) {
-      let isOutside = x < 0 || x >= this.width || y < 0 || y >= this.height;
-      let here = isOutside ? "wall" : this.rows[y][x];
-      if (here == type) return true;
-    }
+      let isOutside = y < 0 || y >= HEIGHT;
+      if (isOutside) return true;
   }
   return false;
 };

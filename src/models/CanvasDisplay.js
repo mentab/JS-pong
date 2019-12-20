@@ -1,12 +1,10 @@
-import { WIDTH, HEIGHT } from '../consts/consts.js';
-
-const scale = 20;
+import { WIDTH, HEIGHT, SCALE } from '../consts/consts.js';
 
 export class CanvasDisplay {
   constructor(parent, level) {
     this.canvas = document.createElement("canvas");
-    this.canvas.width = WIDTH;
-    this.canvas.height = HEIGHT;
+    this.canvas.width = WIDTH * SCALE;
+    this.canvas.height = HEIGHT * SCALE;
     parent.appendChild(this.canvas);
     this.cx = this.canvas.getContext("2d");
   }
@@ -34,10 +32,10 @@ CanvasDisplay.prototype.clearDisplay = function(status) {
 
 CanvasDisplay.prototype.drawActors = function(actors) {
   for (let actor of actors) {
-    let width = actor.size.x * scale;
-    let height = actor.size.y * scale;
-    let x = actor.pos.x * scale;
-    let y = actor.pos.y * scale;
+    let width = actor.size.x * SCALE;
+    let height = actor.size.y * SCALE;
+    let x = actor.pos.x * SCALE;
+    let y = actor.pos.y * SCALE;
     this.drawActor(x, y, width, height);
   }
 };
