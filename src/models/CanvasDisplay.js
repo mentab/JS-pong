@@ -1,10 +1,12 @@
+import { WIDTH, HEIGHT } from '../consts/consts.js';
+
 const scale = 20;
 
 export class CanvasDisplay {
   constructor(parent, level) {
     this.canvas = document.createElement("canvas");
-    this.canvas.width = 600;
-    this.canvas.height = 450;
+    this.canvas.width = WIDTH;
+    this.canvas.height = HEIGHT;
     parent.appendChild(this.canvas);
     this.cx = this.canvas.getContext("2d");
   }
@@ -41,6 +43,7 @@ CanvasDisplay.prototype.drawActors = function(actors) {
 };
 
 CanvasDisplay.prototype.drawActor = function(x, y, width, height) {
+  this.cx.fillStyle = "rgb(255, 255, 255)";
   this.cx.fillRect(x, y, width, height);
   this.cx.restore();
 };
