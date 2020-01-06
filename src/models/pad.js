@@ -14,7 +14,7 @@ export class Pad {
   get type() { return "pad"; }
 
   static create(pos) {
-  	return new Pad(pos.plus(new Vec(WIDTH - padWidth - MARGIN, HEIGHT / 2 - (padHeight / 2))));
+  	return new Pad(new Vec(WIDTH - padWidth - MARGIN, HEIGHT / 2 - (padHeight / 2)));
   }
 }
 

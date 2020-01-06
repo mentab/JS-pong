@@ -2,9 +2,6 @@ import { WIDTH, HEIGHT, SCALE } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
 
-const ballXSpeed = 4;
-const ballYSpeed = 3;
-
 export class Ball {
   constructor(pos, speed) {
   	this.pos = pos;
@@ -14,35 +11,31 @@ export class Ball {
   get type() { return "ball"; }
 
   static create(pos, speed) {
-  	return new Ball(pos.plus(new Vec(WIDTH / 2 - .5, HEIGHT / 2 - .5)), speed);
+    let createPos = new Vec(WIDTH / 2 - .5, HEIGHT / 2 - .5);
+    let createSpeed = new Vec(4, 3);
+  	return new Ball(createPos, createSpeed);
   }
-}
-
-// TODO modify speed func instead of two func
-Ball.prototype.revertXDirection = function() {
-	this.xDirection *= -1;
-}
-
-Ball.prototype.revertYDirection = function() {
-	this.yDirection *= -1;
 }
 
 Ball.prototype.size = new Vec(1, 1);
 
 Ball.prototype.update = function(time, state) {
-  let xSpeed = (this.xDirection > 0 ? 1 : -1) * time * ballXSpeed;
-  let ySpeed = time * ballYSpeed;
+  let xSpeed = time * this.speed.x;
+  let ySpeed = time * this.speed.y;
   let newPos = new Vec(this.pos.x + xSpeed, this.pos.y + ySpeed);
-  return new Ball(newPos, this.xDirection);
+  let newSpeed = new Vec(this.speed.x, this.speed.y);
+  return new Ball(newPos, newSpeed);
 }
 
 Ball.prototype.collide = function(state) {
   let { level, actors, status } = state;
-  state.ball.revertXDirection();
+  let xSpeed = state.ball.speed.x * -1;
+  let ySpeed = state.ball.speed.y;
   let pos = this.pos;
-  let movedY = pos.plus(new Vec(0, ballYSpeed * time));
+  let movedY = pos.plus(new Vec(0, ySpeed));
   if (state.level.isOutside(movedY, this.size)) {
-     state.ball.revertYDirection();
+     ySpeed = state.ball.speed.y * -1;
   }
+  state.ball.speed = new Vec(xSpeed, ySpeed);
   return new State(level, actors, status);
 }

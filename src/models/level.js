@@ -7,9 +7,9 @@ import { Vec } from './../models/vec.js';
 export class Level {
   constructor() {
     this.startActors = [];
-    this.startActors.push(Player.create(new Vec(0, 0)));
-    this.startActors.push(Pad.create(new Vec(0, 0)));
-    this.startActors.push(Ball.create(new Vec(0, 0), 1));
+    this.startActors.push(Player.create());
+    this.startActors.push(Pad.create());
+    this.startActors.push(Ball.create());
   }
 }
 
