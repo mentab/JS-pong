@@ -2,9 +2,9 @@ import { WIDTH, HEIGHT, SCALE, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
 
-const padYSpeed = 15;
-const padHeight = 4;
-const padWidth = 1;
+const padYSpeed = 20;
+const padHeight = 5;
+const padWidth = .5;
 
 export class Pad {
   constructor(pos) {
@@ -18,12 +18,11 @@ export class Pad {
   }
 }
 
-Pad.prototype.size = new Vec(1, padHeight);
+Pad.prototype.size = new Vec(padWidth, padHeight);
 
 Pad.prototype.update = function(time, state) {
-  let ball = state.ball;
-  let ySpeed = (ball.pos.y < this.pos.y ? -1 : 1) * time * padYSpeed;
+  let ySpeed = (state.ball.pos.y <= this.pos.y ? -1 : 1) * time * padYSpeed;
   let newPos = new Vec(this.pos.x, this.pos.y + ySpeed);
-  if (state.level.isOutside(newPos, this.size)) return this;
+  if (state.level.isOutsideY(newPos, this.size)) return this;
   else return new Pad(newPos);
 }

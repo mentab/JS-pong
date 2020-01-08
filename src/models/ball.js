@@ -2,6 +2,8 @@ import { WIDTH, HEIGHT, SCALE } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
 
+const size = .5;
+
 export class Ball {
   constructor(pos, speed) {
   	this.pos = pos;
@@ -10,32 +12,36 @@ export class Ball {
 
   get type() { return "ball"; }
 
-  static create(pos, speed) {
-    let createPos = new Vec(WIDTH / 2 - .5, HEIGHT / 2 - .5);
-    let createSpeed = new Vec(4, 3);
+  static create() {
+    let createPos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
+    let createSpeed = new Vec(8, getRandomArbitrary(-5, 5));
   	return new Ball(createPos, createSpeed);
   }
 }
 
-Ball.prototype.size = new Vec(1, 1);
+Ball.prototype.size = new Vec(size, size);
 
 Ball.prototype.update = function(time, state) {
   let xSpeed = time * this.speed.x;
   let ySpeed = time * this.speed.y;
   let newPos = new Vec(this.pos.x + xSpeed, this.pos.y + ySpeed);
   let newSpeed = new Vec(this.speed.x, this.speed.y);
-  return new Ball(newPos, newSpeed);
+  if (state.level.isOutsideY(newPos, this.size)) {
+    newSpeed = new Vec(this.speed.x, this.speed.y * -1);
+  }
+  if (state.level.isOutsideX(newPos, this.size)) return Ball.create();
+  else return new Ball(newPos, newSpeed);
 }
 
 Ball.prototype.collide = function(state) {
   let { level, actors, status } = state;
-  let xSpeed = state.ball.speed.x * -1;
-  let ySpeed = state.ball.speed.y;
+  let xSpeed = this.speed.x * -1.2;
+  let ySpeed = getRandomArbitrary(-5, 5);
   let pos = this.pos;
-  let movedY = pos.plus(new Vec(0, ySpeed));
-  if (state.level.isOutside(movedY, this.size)) {
-     ySpeed = state.ball.speed.y * -1;
-  }
   state.ball.speed = new Vec(xSpeed, ySpeed);
   return new State(level, actors, status);
+}
+
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
 }

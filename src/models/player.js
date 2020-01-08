@@ -2,9 +2,9 @@ import { WIDTH, HEIGHT, SCALE, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
 
-const playerYSpeed = 15;
-const playerHeight = 4;
-const playerWidth = 1;
+const playerYSpeed = 20;
+const playerHeight = 5;
+const playerWidth = .5;
 
 export class Player {
   constructor(pos) {
@@ -14,7 +14,7 @@ export class Player {
   get type() { return "player"; }
 
   static create(pos) {
-    return new Player(new Vec(playerWidth, HEIGHT / 2 - (playerHeight / 2)));
+    return new Player(new Vec(playerWidth + MARGIN, HEIGHT / 2 - (playerHeight / 2)));
   }
 }
 
@@ -26,7 +26,7 @@ Player.prototype.update = function(time, state, keys) {
   if (keys.ArrowDown) ySpeed += playerYSpeed;
   let pos = this.pos;
   let movedY = pos.plus(new Vec(0, ySpeed * time));
-  if (!state.level.isOutside(movedY, this.size)) {
+  if (!state.level.isOutsideY(movedY, this.size)) {
     pos = movedY;
   }
   return new Player(pos);
