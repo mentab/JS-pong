@@ -14,7 +14,7 @@ export class Ball {
 
   static create() {
     let createPos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
-    let createSpeed = new Vec(8, getRandomArbitrary(-5, 5));
+    let createSpeed = new Vec(8, getRandomArbitrary(-10, 10));
   	return new Ball(createPos, createSpeed);
   }
 }
@@ -36,7 +36,7 @@ Ball.prototype.update = function(time, state) {
 Ball.prototype.collide = function(state) {
   let { level, actors, status } = state;
   let xSpeed = this.speed.x * -1.2;
-  let ySpeed = getRandomArbitrary(-5, 5);
+  let ySpeed = getRandomArbitrary(-10, 10);
   let pos = this.pos;
   state.ball.speed = new Vec(xSpeed, ySpeed);
   return new State(level, actors, status);
