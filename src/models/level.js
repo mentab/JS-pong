@@ -3,6 +3,7 @@ import { Player } from './../models/player.js';
 import { Pad } from './../models/pad.js';
 import { Ball } from './../models/ball.js';
 import { Vec } from './../models/vec.js';
+import { Score } from './../models/score.js';
 
 export class Level {
   constructor() {
@@ -10,6 +11,7 @@ export class Level {
     this.startActors.push(Player.create());
     this.startActors.push(Pad.create());
     this.startActors.push(Ball.create());
+    this.startActors.push(Score.create());
   }
 }
 

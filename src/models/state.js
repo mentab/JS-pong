@@ -12,6 +12,14 @@ export class State {
   get ball() {
     return this.actors.find(a => a.type == "ball");
   }
+
+  get pad() {
+    return this.actors.find(a => a.type == "pad");
+  }
+
+  get player() {
+    return this.actors.find(a => a.type == "player");
+  }
 }
 
 State.prototype.update = function(time, keys) {
@@ -21,12 +29,11 @@ State.prototype.update = function(time, keys) {
   if (newState.status != "playing") return newState;
 
   let ball = newState.ball;
+  let pad = newState.pad;
+  let player = newState.player;
 
-  for (let actor of actors) {
-    if (actor != ball && overlap(actor, ball)) {
-      newState = ball.collide(newState);
-    }
-  }
+  if (overlap(pad, ball) || overlap(player, ball)) newState = ball.collide(newState);
+
   return newState;
 };
 

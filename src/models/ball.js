@@ -26,9 +26,7 @@ Ball.prototype.update = function(time, state) {
   let ySpeed = time * this.speed.y;
   let newPos = new Vec(this.pos.x + xSpeed, this.pos.y + ySpeed);
   let newSpeed = new Vec(this.speed.x, this.speed.y);
-  if (state.level.isOutsideY(newPos, this.size)) {
-    newSpeed = new Vec(this.speed.x, this.speed.y * -1);
-  }
+  if (state.level.isOutsideY(newPos, this.size)) newSpeed = new Vec(this.speed.x, this.speed.y * -1);
   if (state.level.isOutsideX(newPos, this.size)) return Ball.create();
   else return new Ball(newPos, newSpeed);
 }

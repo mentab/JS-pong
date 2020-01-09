@@ -13,7 +13,7 @@ export class Pad {
 
   get type() { return "pad"; }
 
-  static create(pos) {
+  static create() {
   	return new Pad(new Vec(WIDTH - padWidth - MARGIN, HEIGHT / 2 - padHeight / 2));
   }
 }
@@ -22,11 +22,9 @@ Pad.prototype.size = new Vec(padWidth, padHeight);
 
 Pad.prototype.update = function(time, state) {
   let ySpeed = 0;
-  let isMovingTop = state.ball.pos.y < (this.pos.y + padHeight / 4);
-  let isMovingBottom = state.ball.pos.y > (this.pos.y + padHeight * 2 / 4);
-  if (isMovingTop) ySpeed = -1 * time * padYSpeed;
-  if (isMovingBottom) ySpeed = 1 * time * padYSpeed;
-  let newPos = new Vec(this.pos.x, this.pos.y + ySpeed);
+  if (state.ball.pos.y < (this.pos.y + padHeight / 4)) ySpeed = -1 * padYSpeed;
+  if (state.ball.pos.y > (this.pos.y + padHeight * 2 / 4)) ySpeed = 1 * padYSpeed;
+  let newPos = new Vec(this.pos.x, this.pos.y + ySpeed * time);
   if (state.level.isOutsideY(newPos, this.size)) return this;
   else return new Pad(newPos);
 }
