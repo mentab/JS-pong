@@ -1,4 +1,4 @@
-import { WIDTH, HEIGHT, SCALE, MARGIN } from '../consts/consts.js';
+import { HEIGHT, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
 

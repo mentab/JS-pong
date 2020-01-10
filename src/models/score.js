@@ -1,3 +1,4 @@
+import { WIDTH, HEIGHT, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 
 export class Score {
@@ -9,13 +10,13 @@ export class Score {
 
   get type() { return "score"; }
 
+  get value() { return `${this.playerScore} - ${this.padScore}`; }
+
   static create() {
-    return new Score(new Vec(5, 5));
+    return new Score(new Vec(WIDTH / 2, MARGIN));
   }
 }
 
-Score.prototype.size = new Vec(5, 5);
-
 Score.prototype.update = function(time, state, keys) {
-  return new Score(new Vec(5, 5));
+  return new Score(new Vec(WIDTH / 2, MARGIN));
 }

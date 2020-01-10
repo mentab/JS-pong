@@ -7,6 +7,7 @@ export class CanvasDisplay {
     this.canvas.height = HEIGHT * SCALE;
     parent.appendChild(this.canvas);
     this.cx = this.canvas.getContext("2d");
+    this.cx.fillStyle = "rgb(255, 255, 255)";
   }
 
   clear() {
@@ -32,16 +33,30 @@ CanvasDisplay.prototype.clearDisplay = function(status) {
 
 CanvasDisplay.prototype.drawActors = function(actors) {
   for (let actor of actors) {
-    let width = actor.size.x * SCALE;
-    let height = actor.size.y * SCALE;
     let x = actor.pos.x * SCALE;
     let y = actor.pos.y * SCALE;
-    this.drawActor(x, y, width, height);
+    if (actor.type != "score") {
+      let width = actor.size.x * SCALE;
+      let height = actor.size.y * SCALE;
+      this.drawActor(x, y, width, height);
+    } else {
+      let value = actor.value;
+      this.drawText(value, x, y);
+    }
   }
 };
 
 CanvasDisplay.prototype.drawActor = function(x, y, width, height) {
   this.cx.fillStyle = "rgb(255, 255, 255)";
   this.cx.fillRect(x, y, width, height);
+  this.cx.restore();
+};
+
+CanvasDisplay.prototype.drawText = function(value, x, y) {
+  this.cx.fillStyle = "rgb(255, 255, 255)";
+  this.cx.font = "30px Arial";
+  this.cx.textBaseline = 'middle';
+  this.cx.textAlign = "center";
+  this.cx.fillText(value, x, y);
   this.cx.restore();
 };
