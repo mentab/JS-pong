@@ -25,9 +25,8 @@ Player.prototype.update = function(time, state, keys) {
   if (keys.ArrowUp) ySpeed -= playerYSpeed;
   if (keys.ArrowDown) ySpeed += playerYSpeed;
   let pos = this.pos;
-  let movedY = pos.plus(new Vec(0, ySpeed * time));
-  if (!state.level.isOutsideY(movedY, this.size)) {
-    pos = movedY;
-  }
-  return new Player(pos);
+  let newPos = pos.plus(new Vec(0, ySpeed * time));
+  let outsideDirection = state.level.touches(newPos, this.size);
+  if (outsideDirection === 'top' || outsideDirection === 'bottom') return this;
+  return new Player(newPos);
 }

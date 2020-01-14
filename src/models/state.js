@@ -20,19 +20,24 @@ export class State {
   get player() {
     return this.actors.find(a => a.type == "player");
   }
+
+  get score() {
+    return this.actors.find(a => a.type == "score");
+  }
 }
 
 State.prototype.update = function(time, keys) {
-  let actors = this.actors.map(actor => actor.update(time, this, keys));
-  let newState = new State(this.level, actors, this.status);
+  let newActors = this.actors.map(actor => actor.update(time, this, keys));
+  let newState = new State(this.level, newActors, this.status);
+  let newBall = newState.ball;
 
   if (newState.status != "playing") return newState;
 
-  let ball = newState.ball;
-  let pad = newState.pad;
-  let player = newState.player;
+  let direction = this.level.touches(newBall.pos, newBall.size);
 
-  if (overlap(pad, ball) || overlap(player, ball)) newState = ball.collide(newState);
+  if (direction) return newBall.collide(newState, direction);
+
+  if (overlap(newState.pad, newState.ball) || overlap(newState.player, newState.ball)) return newBall.collide(newState);
 
   return newState;
 };

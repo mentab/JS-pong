@@ -26,17 +26,27 @@ Ball.prototype.update = function(time, state) {
   let ySpeed = time * this.speed.y;
   let newPos = new Vec(this.pos.x + xSpeed, this.pos.y + ySpeed);
   let newSpeed = new Vec(this.speed.x, this.speed.y);
-  if (state.level.isOutsideY(newPos, this.size)) newSpeed = new Vec(this.speed.x, this.speed.y * -1);
-  if (state.level.isOutsideX(newPos, this.size)) return Ball.create();
-  else return new Ball(newPos, newSpeed);
+  return new Ball(newPos, newSpeed);
 }
 
-Ball.prototype.collide = function(state) {
+Ball.prototype.collide = function(state, direction) {
   let { level, actors, status } = state;
-  let xSpeed = this.speed.x * -1.2;
-  let ySpeed = getRandomArbitrary(-10, 10);
-  let pos = this.pos;
-  state.ball.speed = new Vec(xSpeed, ySpeed);
+
+  if (direction === 'top' || direction === 'bottom') {
+    state.ball.speed = new Vec(this.speed.x, this.speed.y * -1);
+  } else if (direction === 'right') {
+    state.score.playerScore++;
+    state.ball.pos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
+    state.ball.speed = new Vec(8, getRandomArbitrary(-10, 10));
+  } else if (direction === 'left') {
+    state.score.padScore++;
+    // TODO deduplicate this code
+    state.ball.pos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
+    state.ball.speed = new Vec(-8, getRandomArbitrary(-10, 10));
+  } else {
+    state.ball.speed = new Vec(this.speed.x * -1, this.speed.y);
+  }
+
   return new State(level, actors, status);
 }
 
