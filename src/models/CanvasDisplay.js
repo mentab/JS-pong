@@ -35,7 +35,7 @@ CanvasDisplay.prototype.drawActors = function(actors) {
   for (let actor of actors) {
     let x = actor.pos.x * SCALE;
     let y = actor.pos.y * SCALE;
-    if (actor.type != "score") {
+    if (actor.type != "score" && actor.type != "text") {
       let width = actor.size.x * SCALE;
       let height = actor.size.y * SCALE;
       this.drawActor(x, y, width, height);

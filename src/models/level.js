@@ -4,11 +4,13 @@ import { Pad } from './../models/pad.js';
 import { Ball } from './../models/ball.js';
 import { Vec } from './../models/vec.js';
 import { Score } from './../models/score.js';
+import { Text } from './../models/text.js';
 
 export class Level {
   constructor() {
     this.startActors = [];
     this.startActors.push(Score.create());
+    this.startActors.push(Text.create());
     this.startActors.push(Player.create());
     this.startActors.push(Pad.create());
     this.startActors.push(Ball.create());

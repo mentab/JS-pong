@@ -3,6 +3,9 @@ import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
 
 const size = .5;
+const createPos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
+const createSpeed = new Vec(20, getRandomY());
+const createSpeedRevertY = new Vec(-20, getRandomY());
 
 export class Ball {
   constructor(pos, speed) {
@@ -13,8 +16,6 @@ export class Ball {
   get type() { return "ball"; }
 
   static create() {
-    let createPos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
-    let createSpeed = new Vec(8, getRandomArbitrary(-10, 10));
   	return new Ball(createPos, createSpeed);
   }
 }
@@ -36,20 +37,27 @@ Ball.prototype.collide = function(state, direction) {
     state.ball.speed = new Vec(this.speed.x, this.speed.y * -1);
   } else if (direction === 'right') {
     state.score.playerScore++;
-    state.ball.pos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
-    state.ball.speed = new Vec(8, getRandomArbitrary(-10, 10));
+    state.ball.pos = createPos;
+    state.ball.speed = createSpeed;
   } else if (direction === 'left') {
     state.score.padScore++;
-    // TODO deduplicate this code
-    state.ball.pos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
-    state.ball.speed = new Vec(-8, getRandomArbitrary(-10, 10));
+    state.ball.pos = createPos;
+    state.ball.speed = createSpeedRevertY;
   } else {
     state.ball.speed = new Vec(this.speed.x * -1, this.speed.y);
+  }
+
+  if (state.score.playerScore >= 10) {
+    status = 'won';
+  }
+
+  if (state.score.padScore >= 10) {
+    status = 'lost';
   }
 
   return new State(level, actors, status);
 }
 
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
+function getRandomY() {
+  return Math.random() * 20 - 10;
 }
