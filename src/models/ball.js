@@ -21,7 +21,7 @@ export class Ball {
 
 Ball.prototype.size = new Vec(size, size);
 
-Ball.prototype.update = function(time, state) {
+Ball.prototype.update = function(time, state, keys) {
   let xSpeed = time * this.speed.x;
   let ySpeed = time * this.speed.y;
   let newPos = new Vec(this.pos.x + xSpeed, this.pos.y + ySpeed);

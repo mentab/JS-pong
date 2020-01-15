@@ -14,7 +14,7 @@ export class Player {
   get type() { return "player"; }
 
   static create() {
-    return new Player(new Vec(playerWidth + MARGIN, HEIGHT / 2 - playerHeight / 2));
+    return new Player(new Vec(MARGIN, HEIGHT / 2 - playerHeight / 2));
   }
 }
 

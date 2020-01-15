@@ -1,7 +1,5 @@
-import { WIDTH, HEIGHT, MARGIN } from '../consts/consts.js';
+import { WIDTH, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
-import { State } from './../models/state.js';
-import { Ball } from './../models/ball.js';
 
 
 export class Score {
