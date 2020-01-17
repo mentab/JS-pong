@@ -19,7 +19,7 @@ export class Text {
 
 Text.prototype.update = function(time, state, keys) {
   let newText = '';
-  if (state.status === 'won') newText = "You WON";
-  if (state.status === 'lost') newText = "You LOST";
+  if (state.status === 'won') newText = "WON";
+  if (state.status === 'lost') newText = "LOST";
   return new Text(newText);
 }

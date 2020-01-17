@@ -4,14 +4,14 @@ import { Vec } from './../models/vec.js';
 
 export class Score {
   constructor(playerScore, padScore) {
-  	this.pos = new Vec(WIDTH / 2, MARGIN);
+  	this.pos = new Vec(WIDTH / 2, MARGIN * 2);
     this.playerScore = playerScore;
     this.padScore = padScore;
   }
 
   get type() { return "score"; }
 
-  get value() { return `${this.playerScore} - ${this.padScore}`; }
+  get value() { return `${this.playerScore}   ${this.padScore}`; }
 
   static create() {
     return new Score(0, 0);

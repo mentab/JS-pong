@@ -21,13 +21,7 @@ CanvasDisplay.prototype.syncState = function(state) {
 };
 
 CanvasDisplay.prototype.clearDisplay = function(status) {
-  if (status == "won") {
-    this.cx.fillStyle = "rgb(68, 191, 255)";
-  } else if (status == "lost") {
-    this.cx.fillStyle = "rgb(44, 136, 214)";
-  } else {
-    this.cx.fillStyle = "rgb(52, 166, 251)";
-  }
+  this.cx.fillStyle = "rgb(0, 0, 0)";
   this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 };
 
@@ -49,12 +43,11 @@ CanvasDisplay.prototype.drawActors = function(actors) {
 CanvasDisplay.prototype.drawActor = function(x, y, width, height) {
   this.cx.fillStyle = "rgb(255, 255, 255)";
   this.cx.fillRect(x, y, width, height);
-  this.cx.restore();
 };
 
 CanvasDisplay.prototype.drawText = function(value, x, y) {
   this.cx.fillStyle = "rgb(255, 255, 255)";
-  this.cx.font = "30px Arial";
+  this.cx.font = "40px 'Press Start 2P'";
   this.cx.textBaseline = 'middle';
   this.cx.textAlign = "center";
   this.cx.fillText(value, x, y);

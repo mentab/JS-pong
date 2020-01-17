@@ -4,8 +4,8 @@ import { State } from './../models/state.js';
 
 const size = .5;
 const createPos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
-const createSpeed = new Vec(20, getRandomY());
-const createSpeedRevertY = new Vec(-20, getRandomY());
+const createSpeed = new Vec(14, getRandomY());
+const createSpeedRevertY = new Vec(-14, getRandomY());
 
 export class Ball {
   constructor(pos, speed) {
@@ -44,7 +44,7 @@ Ball.prototype.collide = function(state, direction) {
     state.ball.pos = createPos;
     state.ball.speed = createSpeedRevertY;
   } else {
-    state.ball.speed = new Vec(this.speed.x * -1, this.speed.y);
+    state.ball.speed = new Vec(this.speed.x * -1.1, getRandomY());
   }
 
   if (state.score.playerScore >= 10) {

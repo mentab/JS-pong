@@ -64,6 +64,7 @@ function runGame(Display) {
         display.clear();
         arrowKeys.unregister();
         resolve(state.status);
+        runGame(CanvasDisplay);
         return false;
       }
     }

@@ -2,8 +2,8 @@ import { HEIGHT, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
 
-const playerYSpeed = 20;
-const playerHeight = 5;
+const playerYSpeed = 25;
+const playerHeight = 3;
 const playerWidth = .5;
 
 export class Player {

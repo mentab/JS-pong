@@ -2,8 +2,8 @@ import { WIDTH, HEIGHT, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
 
-const padYSpeed = 1;
-const padHeight = 1;
+const padYSpeed = 25;
+const padHeight = 3;
 const padWidth = .5;
 
 export class Pad {
