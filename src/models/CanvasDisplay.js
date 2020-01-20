@@ -8,6 +8,8 @@ export class CanvasDisplay {
     parent.appendChild(this.canvas);
     this.cx = this.canvas.getContext("2d");
     this.cx.fillStyle = "rgb(255, 255, 255)";
+    this.cx.textBaseline = 'middle';
+    this.cx.textAlign = "center";
   }
 
   clear() {
@@ -23,6 +25,12 @@ CanvasDisplay.prototype.syncState = function(state) {
 CanvasDisplay.prototype.clearDisplay = function(status) {
   this.cx.fillStyle = "rgb(0, 0, 0)";
   this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+  this.cx.strokeStyle = "rgb(255, 255, 255)";
+  this.cx.beginPath();
+  this.cx.setLineDash([5, 15]);
+  this.cx.moveTo(WIDTH / 2 * SCALE, 0);
+  this.cx.lineTo(WIDTH / 2 * SCALE, HEIGHT * SCALE);
+  this.cx.stroke();
 };
 
 CanvasDisplay.prototype.drawActors = function(actors) {
@@ -47,9 +55,9 @@ CanvasDisplay.prototype.drawActor = function(x, y, width, height) {
 
 CanvasDisplay.prototype.drawText = function(value, x, y) {
   this.cx.fillStyle = "rgb(255, 255, 255)";
-  this.cx.font = "40px 'Press Start 2P'";
-  this.cx.textBaseline = 'middle';
-  this.cx.textAlign = "center";
+  this.cx.font = "20px abstract";
   this.cx.fillText(value, x, y);
   this.cx.restore();
 };
+
+document.fonts.load('20px abstract').then(CanvasDisplay.drawText);
