@@ -1,9 +1,10 @@
 class Consts {
   constructor() {
   	//if(!Consts.consts) {
-      this.scale = 20;
-  	  this.width = window.innerWidth / this.scale;
-  	  this.height = window.innerHeight / this.scale;
+      this.width = 30; // TODO it's a real const now
+      this.height = 20;
+      this.scaleX = window.innerWidth / this.width;
+      this.scaleY = window.innerHeight / this.height;
   	  this.margin = 1;
 
   	  Consts.consts = this;

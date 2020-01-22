@@ -2,7 +2,7 @@ import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
 import consts from './../models/consts.js';
 
-const padYSpeed = 1;
+const padYSpeed = 25;
 const padHeight = 3;
 const padWidth = .4;
 
