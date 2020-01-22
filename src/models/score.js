@@ -1,10 +1,9 @@
-import { WIDTH, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
-
+import consts from './../models/consts.js';
 
 export class Score {
   constructor(playerScore, padScore) {
-  	this.pos = new Vec(WIDTH / 2, MARGIN * 2);
+  	this.pos = new Vec(consts.width / 2, consts.margin * 2);
     this.playerScore = playerScore;
     this.padScore = padScore;
   }

@@ -1,10 +1,10 @@
-import { HEIGHT, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
+import consts from './../models/consts.js';
 
 const playerYSpeed = 25;
 const playerHeight = 3;
-const playerWidth = .5;
+const playerWidth = .4;
 
 export class Player {
   constructor(pos) {
@@ -14,7 +14,7 @@ export class Player {
   get type() { return "player"; }
 
   static create() {
-    return new Player(new Vec(MARGIN, HEIGHT / 2 - playerHeight / 2));
+    return new Player(new Vec(consts.margin, consts.height / 2 - playerHeight / 2));
   }
 }
 

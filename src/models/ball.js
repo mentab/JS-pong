@@ -1,9 +1,10 @@
-import { WIDTH, HEIGHT, SCALE } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
+import { Level } from './../models/level.js';
+import consts from './../models/consts.js';
 
-const size = .5;
-const createPos = new Vec(WIDTH / 2 - size / 2, HEIGHT / 2 - size / 2);
+const ballSize = .4;
+const createPos = new Vec(consts.width / 2 - ballSize / 2, consts.height / 2 - ballSize / 2);
 const createSpeed = new Vec(14, getRandomY());
 const createSpeedRevertY = new Vec(-14, getRandomY());
 
@@ -20,7 +21,7 @@ export class Ball {
   }
 }
 
-Ball.prototype.size = new Vec(size, size);
+Ball.prototype.size = new Vec(ballSize, ballSize);
 
 Ball.prototype.update = function(time, state, keys) {
   let xSpeed = time * this.speed.x;
@@ -34,30 +35,28 @@ Ball.prototype.collide = function(state, direction) {
   let { level, actors, status } = state;
 
   if (direction === 'top' || direction === 'bottom') {
-    state.ball.speed = new Vec(this.speed.x, this.speed.y * -1);
+    onCollide(state.ball, new Vec(this.speed.x, this.speed.y * -1));
   } else if (direction === 'right') {
+    onCollide(state.ball, createSpeed, createPos, state.score.playerScore);
     state.score.playerScore++;
-    state.ball.pos = createPos;
-    state.ball.speed = createSpeed;
   } else if (direction === 'left') {
+    onCollide(state.ball, createSpeedRevertY, createPos, state.score.padScore);
     state.score.padScore++;
-    state.ball.pos = createPos;
-    state.ball.speed = createSpeedRevertY;
   } else {
-    state.ball.speed = new Vec(this.speed.x * -1.1, getRandomY());
+    onCollide(state.ball, new Vec(this.speed.x * -1.1, getRandomY()));
   }
 
-  if (state.score.playerScore >= 10) {
-    status = 'won';
-  }
-
-  if (state.score.padScore >= 10) {
-    status = 'lost';
-  }
+  if (state.score.playerScore >= 10) status = 'won';
+  if (state.score.padScore >= 10) status = 'lost';
 
   return new State(level, actors, status);
 }
 
 function getRandomY() {
   return Math.random() * 20 - 10;
+}
+
+function onCollide(ball, speed, pos) {
+  if (speed) ball.speed = speed;
+  if (pos) ball.pos = pos;
 }

@@ -1,10 +1,9 @@
-import { WIDTH, HEIGHT } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
-
+import consts from './../models/consts.js';
 
 export class Text {
   constructor(text) {
-  	this.pos = new Vec(WIDTH / 2, HEIGHT / 2);
+  	this.pos = new Vec(consts.width / 2, consts.height / 2);
     this.text = text;
   }
 

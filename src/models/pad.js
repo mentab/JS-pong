@@ -1,10 +1,10 @@
-import { WIDTH, HEIGHT, MARGIN } from '../consts/consts.js';
 import { Vec } from './../models/vec.js';
 import { State } from './../models/state.js';
+import consts from './../models/consts.js';
 
-const padYSpeed = 25;
+const padYSpeed = 1;
 const padHeight = 3;
-const padWidth = .5;
+const padWidth = .4;
 
 export class Pad {
   constructor(pos) {
@@ -14,7 +14,7 @@ export class Pad {
   get type() { return "pad"; }
 
   static create() {
-  	return new Pad(new Vec(WIDTH - padWidth - MARGIN, HEIGHT / 2 - padHeight / 2));
+  	return new Pad(new Vec(consts.width - padWidth - consts.margin, consts.height / 2 - padHeight / 2));
   }
 }
 
